@@ -31,3 +31,8 @@ body {
   background-color: #fff;
   padding: 50px;
 }
+
+#toggleInformation {
+  background-color: rgb(163, 21, 163);
+  color: 640d5f;
+}

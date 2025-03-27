@@ -15,18 +15,42 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     })
     .catch((error) => console.error("Error fetching data", error));
+  initToggleInfo();
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const toggleButton = document.getElementById("togglefunction");
+//toggle city, phone & company name
+function initToggleInfo() {
+  const toggleButton = document.getElementById("toggleInformation");
+  const informationList = document.getElementById("informationList");
+  if (toggleButton) {
+    toggleButton.addEventListener("click", function () {
+      const userCards = document.querySelectorAll(".userCard"); // Ändrat till querySelectorAll för att hämta alla kort
 
-  toggleButton.addEventListener("click", function () {
-    if (toggleButton.textContent === "Hide information") {
-      toggleButton.textContent = "Show information";
-      toggleButton.style.backgroundColor = "#C1D8C3";
-    } else {
-      toggleButton.textContent = "Hide information";
-      toggleButton.style.backgroundColor = "#E50046";
-    }
-  });
-});
+      userCards.forEach((userCard) => {
+        userCard.addEventListener("click", function () {
+          const userId = this.getAttribute("data-id");
+          fetchUserInfo(userId, informationList);
+        });
+      });
+
+      informationList.style.display =
+        informationList.style.display === "none" ? "block" : "none";
+    }); // Här stänger vi if-satsen
+  } else {
+    console.warn("Toggle button is not found, skipping toggle initialization.");
+  }
+}
+
+function fetchUserInfo(userId, informationList) {
+  fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+    .then((response) => response.json())
+    .then((user) => {
+      const userInfo = `
+    <h4>City: ${user.address.city}</h4>
+        <h4>Phone: ${user.phone}</h4>
+        <h4>Company Name: ${user.company.name}</h4>
+      `;
+      informationList.innerHTML = userInfo;
+    })
+    .catch((error) => console.error("Error fetching user info", error));
+}
