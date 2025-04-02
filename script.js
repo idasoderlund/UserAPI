@@ -6,39 +6,35 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((users) => {
       users.forEach((user) => {
         let content = `
-      <div class="userCard">
+      <div class="userCard" data-id=${user.id}>
       <h3>${user.name}</h3>
         <h4>${user.username}</h4>
         <h3>${user.email}</h3>
+        <button class="toggleInformation">View User Information"</button>
+        <div class="informationList" style="display: none"></div>
         </div>`;
         usersContainer.innerHTML += content;
       });
+      initToggleInfo();
     })
     .catch((error) => console.error("Error fetching data", error));
-  initToggleInfo();
 });
 
 //toggle city, phone & company name
 function initToggleInfo() {
-  const toggleButton = document.getElementById("toggleInformation");
-  const informationList = document.getElementById("informationList");
-  if (toggleButton) {
+  const userCards = document.querySelectorAll(".userCard");
+
+  userCards.forEach((userCard) => {
+    const toggleButton = userCard.querySelector(".toggleInformation");
+    const informationList = userCard.querySelector(".informationList");
+
     toggleButton.addEventListener("click", function () {
-      const userCards = document.querySelectorAll(".userCard"); // Ändrat till querySelectorAll för att hämta alla kort
-
-      userCards.forEach((userCard) => {
-        userCard.addEventListener("click", function () {
-          const userId = this.getAttribute("data-id");
-          fetchUserInfo(userId, informationList);
-        });
-      });
-
+      const userId = userCard.getAttribute("data-id");
+      fetchUserInfo(userId, informationList);
       informationList.style.display =
         informationList.style.display === "none" ? "block" : "none";
-    }); // Här stänger vi if-satsen
-  } else {
-    console.warn("Toggle button is not found, skipping toggle initialization.");
-  }
+    });
+  });
 }
 
 function fetchUserInfo(userId, informationList) {
