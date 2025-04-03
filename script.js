@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
       users.forEach((user) => {
         let content = `
       <div class="userCard" data-id=${user.id}>
-      <h3>${user.name}</h3>
-        <h4>${user.username}</h4>
-        <h3>${user.email}</h3>
-        <button class="toggleInformation">View User Information"</button>
+      <h3>Name: ${user.name}</h3>
+        <h3>Username: ${user.username}</h3>
+        <h3>Email: ${user.email}</h3>
+        <button class="toggleInformation">View User Information</button>
         <div class="informationList" style="display: none"></div>
         </div>`;
         usersContainer.innerHTML += content;

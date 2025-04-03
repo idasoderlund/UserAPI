@@ -6,11 +6,15 @@
 .navigationMenu {
   background-color: #d69ade;
   color: #640d5f;
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 50px;
+  padding: 30px;
+}
+
+.navigationMenu h1 {
+  font-size: 32px;
+  text-decoration: underline;
 }
 
 body {
@@ -18,8 +22,17 @@ body {
   color: #640d5f;
 }
 
-.footerText h2 {
+.footerText {
   background-color: #d69ade;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  text-align: center;
+  padding: 10px;
+  font-size: 32px;
+}
+.footerText h2 {
   color: #640d5f;
 }
 
@@ -29,10 +42,32 @@ body {
   margin: 10px;
   border-radius: 5px;
   background-color: #fff;
-  padding: 50px;
+}
+
+#users {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 10px;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  #users {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 400px) and (max-width: 767px) {
+  #users {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 400px) {
+  #users {
+    grid-template-columns: 1fr;
+  }
 }
 
 #toggleInformation {
   background-color: rgb(163, 21, 163);
-  color: 640d5f;
+  color: #640d5f;
 }
